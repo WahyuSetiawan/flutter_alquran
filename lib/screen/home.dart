@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'view_home/dashboard.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -31,7 +33,7 @@ class _HomeStateState extends State<HomePage> {
     this._chapterBloc.add(ChapterProvider());
 
     this._navigationBloc = NavigationBloc();
-    this._navigationBloc.add(PageNavigationBar.Home);
+    this._navigationBloc.add(PageNavigationBar.Dashboard);
 
     this._versesBloc = VersesBloc();
 
@@ -45,6 +47,10 @@ class _HomeStateState extends State<HomePage> {
         this._navigationBloc.add(PageNavigationBar.values[value]);
       },
       items: [
+        BottomNavigationBarItem(
+          icon: Icon(FontAwesomeIcons.home),
+          title: Text("Dashboard"),
+        ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.home),
           title: Text("home"),
@@ -80,12 +86,10 @@ class _HomeStateState extends State<HomePage> {
         ],
         child: BlocBuilder<NavigationBloc, PageNavigationBar>(
           builder: (context, pageNavigationBar) => Scaffold(
-            appBar: AppBar(
-              title: Text("Home Alquran"),
-            ),
             body: IndexedStack(
               index: PageNavigationBar.values.indexOf(pageNavigationBar),
               children: [
+                DashboardPage(),
                 ListChapterAlQuran(
                   chaptersBloc: this._chapterBloc,
                   versesBloc: this._versesBloc,
