@@ -28,11 +28,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// {@template brightness_cubit}
-/// A simple [Cubit] which manages the [ThemeData] as its state.
-/// {@endtemplate}
 class ThemeCubit extends Cubit<ThemeData> {
-  /// {@macro brightness_cubit}
   ThemeCubit() : super(_lightTheme);
 
   static final _lightTheme = ThemeData(
@@ -40,6 +36,7 @@ class ThemeCubit extends Cubit<ThemeData> {
       foregroundColor: Colors.white,
     ),
     brightness: Brightness.light,
+    primaryColor: Colors.white,
   );
 
   static final _darkTheme = ThemeData(
@@ -47,6 +44,7 @@ class ThemeCubit extends Cubit<ThemeData> {
       foregroundColor: Colors.black,
     ),
     brightness: Brightness.dark,
+    primaryColor: Colors.black,
   );
 
   /// Toggles the current brightness between light and dark.

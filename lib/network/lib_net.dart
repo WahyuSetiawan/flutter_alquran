@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:alquran/model/chapters/chapters.dart';
 import 'package:alquran/model/options/translations.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,6 +11,16 @@ Future<Object> getDataTranslations() async {
 
   if (connection.statusCode == 200) {
     return TranslationsModel.fromJson(json.decode(connection.body));
+  } else {
+    return null;
+  }
+}
+
+Future<Object> getDataChapters() async {
+  var conn = await http.get("$url/chapters");
+
+  if (conn.statusCode == 200) {
+    return ChaptersModel.fromJson(json.decode(conn.body));
   } else {
     return null;
   }
