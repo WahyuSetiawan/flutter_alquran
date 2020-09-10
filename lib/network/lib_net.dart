@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:alquran/model/chapters/chapters.dart';
 import 'package:alquran/model/options/translations.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 String url = "http://api.quran.com:3000/api/v3";
 
@@ -24,4 +25,9 @@ Future<Object> getDataChapters() async {
   } else {
     return null;
   }
+}
+
+Future<Object> getDataVerse() async {
+  Response response = await Dio().get("$url/chapters/2/verses");
+  // var conn = await Dio.get("$url/chapters/2/verses");
 }

@@ -2,7 +2,9 @@ import 'package:alquran/bloc/bloc_chapters.dart';
 import 'package:alquran/bloc/bloc_home.dart';
 import 'package:alquran/bloc/bloc_item_bottom_navigation.dart';
 import 'package:alquran/model/chapters/chapters.dart';
+import 'package:alquran/screen/view_home/last_reading.dart';
 import 'package:alquran/screen/view_home/list_chapter.dart';
+import 'package:alquran/screen/view_home/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -68,7 +70,7 @@ class _HomeStateState extends State<HomePage> {
           ),
           BlocProvider(
             create: (context) => this._navigationBloc,
-          )
+          ),
         ],
         child: BlocBuilder<NavigationBloc, PageNavigationBar>(
           builder: (context, pageNavigationBar) => Scaffold(
@@ -81,12 +83,8 @@ class _HomeStateState extends State<HomePage> {
                 ListChapterAlQuran(
                   chaptersBloc: this._chapterBloc,
                 ),
-                Container(
-                  child: Text("Last Reading"),
-                ),
-                Container(
-                  child: Text("Setting"),
-                ),
+                PageLastReading(),
+                SettingPage(),
               ],
             ),
             bottomNavigationBar: bottomNavigation(pageNavigationBar),
