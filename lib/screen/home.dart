@@ -60,16 +60,27 @@ class _HomeStateState extends State<HomePage> {
             appBar: AppBar(
               title: Text("Home Alquran"),
             ),
-            body: Container(
-              child: BlocBuilder<ChaptersBloc, ChaptersState>(
-                builder: (context, state) {
-                  if (state is SuccessGetteringChapters) {
-                    return listChapters(state.chaptersModel);
-                  }
+            body: IndexedStack(
+              index: PageNavigationBar.values.indexOf(state),
+              children: [
+                Container(
+                  child: BlocBuilder<ChaptersBloc, ChaptersState>(
+                    builder: (context, state) {
+                      if (state is SuccessGetteringChapters) {
+                        return listChapters(state.chaptersModel);
+                      }
 
-                  return Text("loading");
-                },
-              ),
+                      return Text("loading");
+                    },
+                  ),
+                ),
+                Container(
+                  child: Text("Last Reading"),
+                ),
+                Container(
+                  child: Text("Setting"),
+                ),
+              ],
             ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: PageNavigationBar.values.indexOf(state),
