@@ -1,7 +1,7 @@
 import 'package:alquran/bloc/bloc_chapters.dart';
 import 'package:alquran/bloc/bloc_home.dart';
 import 'package:alquran/bloc/bloc_item_bottom_navigation.dart';
-import 'package:alquran/model/chapters/chapters.dart';
+import 'package:alquran/bloc/bloc_verses.dart';
 import 'package:alquran/screen/view_home/last_reading.dart';
 import 'package:alquran/screen/view_home/list_chapter.dart';
 import 'package:alquran/screen/view_home/setting.dart';
@@ -20,6 +20,7 @@ class _HomeStateState extends State<HomePage> {
   TranslationsBloc _translationsBloc;
   ChaptersBloc _chapterBloc;
   NavigationBloc _navigationBloc;
+  VersesBloc _versesBloc;
 
   @override
   void initState() {
@@ -31,6 +32,8 @@ class _HomeStateState extends State<HomePage> {
 
     this._navigationBloc = NavigationBloc();
     this._navigationBloc.add(PageNavigationBar.Home);
+
+    this._versesBloc = VersesBloc();
 
     super.initState();
   }
@@ -71,6 +74,9 @@ class _HomeStateState extends State<HomePage> {
           BlocProvider(
             create: (context) => this._navigationBloc,
           ),
+          BlocProvider(
+            create: (context) => this._versesBloc,
+          )
         ],
         child: BlocBuilder<NavigationBloc, PageNavigationBar>(
           builder: (context, pageNavigationBar) => Scaffold(
@@ -82,6 +88,7 @@ class _HomeStateState extends State<HomePage> {
               children: [
                 ListChapterAlQuran(
                   chaptersBloc: this._chapterBloc,
+                  versesBloc: this._versesBloc,
                 ),
                 PageLastReading(),
                 SettingPage(),
