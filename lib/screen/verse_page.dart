@@ -26,23 +26,78 @@ class _PageVersesState extends State<PageVerses> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Detail Verse"),
-      ),
-      body: BlocBuilder<VersesBloc, VerseState>(
-        builder: (context, state) {
-          if (state is SuccessVerse) {
-            return Container(
-              child: Text(state.versesModel.verses.length.toString()),
-            );
-          }
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => widget.versesBloc,
+          )
+        ],
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("Detail Verse"),
+          ),
+          body: BlocBuilder<VersesBloc, VerseState>(
+            builder: (context, state) {
+              if (state is SuccessVerse) {
+                return Container(
+                  child: ListView.builder(
+                    itemCount: state.versesModel.verses.length,
+                    itemBuilder: (context, index) {
+                      String arti = "";
 
-          return Container(
-            child: Text("failed"),
-          );
-        },
-      ),
-    );
+                      for (var a in state.versesModel.verses[index].words) {
+                        if (a.translation != null) {
+                          arti += a.translation.text;
+                        }
+                      }
+
+                      return Container(
+                        decoration: BoxDecoration(
+                            color: index % 2 == 0
+                                ? Colors.transparent
+                                : Colors.black54),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Center(
+                                child: Text(
+                                  (index + 1).toString(),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                                flex: 8,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        state.versesModel.verses[index]
+                                            .textIndopak,
+                                        softWrap: true,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        arti,
+                                        softWrap: true,
+                                      ),
+                                    ),
+                                  ],
+                                ))
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }
+
+              return Container(
+                child: Text("failed"),
+              );
+            },
+          ),
+        ));
   }
 }

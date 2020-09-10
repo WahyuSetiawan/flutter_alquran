@@ -47,6 +47,8 @@ Future<Object> getDataVerse({
   );
 
   if (response.statusCode == 200) {
+    print(response.data["verses"]);
+
     return VersesModel.fromJson(response.data);
   } else {
     return null;

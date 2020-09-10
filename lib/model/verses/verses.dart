@@ -6,9 +6,9 @@ class VersesModel {
   VersesModel({this.verses});
 
   VersesModel.fromJson(Map<String, dynamic> json) {
-    if (json['chapters'] != null) {
+    if (json['verses'] != null) {
       verses = new List<Verse>();
-      json['chapters'].forEach((v) {
+      json['verses'].forEach((v) {
         verses.add(new Verse.fromJson(v));
       });
     }
