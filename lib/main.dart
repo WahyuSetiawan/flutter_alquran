@@ -14,11 +14,8 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (_, theme) {
           return MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
+            title: 'Al Quran',
+            theme: ThemeCubit._lightTheme,
             home: HomePage(),
           );
         },
@@ -35,6 +32,16 @@ class ThemeCubit extends Cubit<ThemeData> {
       foregroundColor: Colors.white,
     ),
     brightness: Brightness.light,
+    backgroundColor: Color(0xffFFFFDB),
+    primaryColor: Color(0xff968251),
+    fontFamily: 'roboto',
+    textTheme: TextTheme(
+      button: TextStyle(
+        color: Color(
+          0xff0d0d0d,
+        ),
+      ),
+    ),
   );
 
   static final _darkTheme = ThemeData(
@@ -42,6 +49,7 @@ class ThemeCubit extends Cubit<ThemeData> {
       foregroundColor: Colors.black,
     ),
     brightness: Brightness.dark,
+    backgroundColor: Color(0xeff0f3),
   );
 
   /// Toggles the current brightness between light and dark.

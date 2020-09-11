@@ -87,20 +87,10 @@ class _HomeStateState extends State<HomePage> {
         ],
         child: BlocBuilder<NavigationBloc, PageNavigationBar>(
           builder: (context, pageNavigationBar) => Scaffold(
-            body: IndexedStack(
-              index: PageNavigationBar.values.indexOf(pageNavigationBar),
-              children: [
-                DashboardPage(
-                  chaptersBloc: this._chapterBloc,
-                  versesBloc: this._versesBloc,
-                ),
-                ListChapterAlQuranPage(
-                  chaptersBloc: this._chapterBloc,
-                  versesBloc: this._versesBloc,
-                ),
-                PageLastReading(),
-                SettingPage(),
-              ],
+            backgroundColor: Theme.of(context).backgroundColor,
+            body: DashboardPage(
+              chaptersBloc: this._chapterBloc,
+              versesBloc: this._versesBloc,
             ),
             // bottomNavigationBar: bottomNavigation(pageNavigationBar),
           ),

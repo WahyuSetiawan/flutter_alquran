@@ -3,6 +3,7 @@ import 'package:alquran/bloc/bloc_verses.dart';
 import 'package:alquran/screen/view_home/list_bookmark.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:intl/intl.dart';
 
 import 'list_chapter.dart';
 import 'setting.dart';
@@ -22,13 +23,43 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  var dateFormat = DateFormat.yMd();
+
   Widget header() {
     return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: EdgeInsets.only(left: 5, right: 5),
+      margin: EdgeInsets.only(bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Bandung"),
-          Text("date"),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Bandung",
+                style: TextStyle(
+                  fontFamily: "roboto",
+                  fontSize: 12,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                dateFormat.format(DateTime.now()).toString(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontFamily: "roboto",
+                ),
+              ),
+            ],
+          ),
+          Icon(
+            Icons.search,
+            color: Colors.white,
+          ),
         ],
       ),
     );
@@ -37,11 +68,26 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget lastReading() {
     return GestureDetector(
       child: Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Last Reading"),
-          ],
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFE3D764),
+          ),
+          height: 150,
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Last reading",
+                style: TextStyle(
+                  fontFamily: "roboto",
+                  color: Color(0xFF545454),
+                ),
+              ),
+              Expanded(child: Stack())
+            ],
+          ),
         ),
       ),
     );
@@ -57,7 +103,26 @@ class _DashboardPageState extends State<DashboardPage> {
         ));
       },
       child: Card(
-        child: Text("List Bookmark"),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFE3D764),
+          ),
+          height: 150,
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "List Bookmark",
+                style: TextStyle(
+                  fontFamily: "roboto",
+                ),
+              ),
+              Expanded(child: Stack())
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -75,7 +140,26 @@ class _DashboardPageState extends State<DashboardPage> {
         ));
       },
       child: Card(
-        child: Text("List Chapter"),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFE3D764),
+          ),
+          height: 150,
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "List Chapter",
+                style: TextStyle(
+                  fontFamily: "roboto",
+                ),
+              ),
+              Expanded(child: Stack())
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -90,7 +174,26 @@ class _DashboardPageState extends State<DashboardPage> {
         ));
       },
       child: Card(
-        child: Text("Setting"),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFE3D764),
+          ),
+          height: 150,
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Setting",
+                style: TextStyle(
+                  fontFamily: "roboto",
+                ),
+              ),
+              Expanded(child: Stack())
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -105,27 +208,26 @@ class _DashboardPageState extends State<DashboardPage> {
       setting(),
     ];
 
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(right: 10, left: 10, top: 9, bottom: 9),
-        child: StaggeredGridView.countBuilder(
-          crossAxisCount: 4,
-          itemCount: listWidgetList.length,
-          itemBuilder: (BuildContext context, int index) =>
-              listWidgetList[index],
-          staggeredTileBuilder: (int index) {
-            switch (index) {
-              case 0:
-                return new StaggeredTile.count(4, .5);
-              case 1:
-                return new StaggeredTile.count(4, 2);
-              default:
-                return new StaggeredTile.fit(2);
-            }
-          },
-          mainAxisSpacing: 4.0,
-          crossAxisSpacing: 4.0,
-        ),
+    return Container(
+      padding: EdgeInsets.only(right: 10, left: 10, top: 9, bottom: 9),
+      child: StaggeredGridView.countBuilder(
+        crossAxisCount: 4,
+        itemCount: listWidgetList.length,
+        itemBuilder: (BuildContext context, int index) => listWidgetList[index],
+        staggeredTileBuilder: (int index) {
+          switch (index) {
+            case 0:
+              return new StaggeredTile.fit(4);
+              break;
+            case 1:
+              return new StaggeredTile.fit(4);
+              break;
+            default:
+              return new StaggeredTile.fit(2);
+          }
+        },
+        mainAxisSpacing: 4.0,
+        crossAxisSpacing: 4.0,
       ),
     );
   }
