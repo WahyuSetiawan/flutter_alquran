@@ -6,21 +6,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../verse_page.dart';
 
-class ListChapterAlQuran extends StatefulWidget {
+class ListChapterAlQuranPage extends StatefulWidget {
   final ChaptersBloc chaptersBloc;
   final VersesBloc versesBloc;
 
-  ListChapterAlQuran({
+  ListChapterAlQuranPage({
     Key key,
     @required this.chaptersBloc,
     @required this.versesBloc,
   }) : super(key: key);
 
   @override
-  _ListChapterAlQuranState createState() => _ListChapterAlQuranState();
+  _ListChapterAlQuranPageState createState() => _ListChapterAlQuranPageState();
 }
 
-class _ListChapterAlQuranState extends State<ListChapterAlQuran> {
+class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
   Widget listChapters(ChaptersModel chaptersModel) {
     return ListView.builder(
       itemCount: chaptersModel.chapters.length,
@@ -73,18 +73,30 @@ class _ListChapterAlQuranState extends State<ListChapterAlQuran> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: BlocBuilder<ChaptersBloc, ChaptersState>(
-          builder: (context, state) {
-            if (state is SuccessGetteringChapters) {
-              return listChapters(state.chaptersModel);
-            }
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => widget.chaptersBloc,
+          ),
+          BlocProvider(
+            create: (context) => widget.versesBloc,
+          )
+        ],
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("List Chipter"),
+          ),
+          body: Container(
+            child: BlocBuilder<ChaptersBloc, ChaptersState>(
+              builder: (context, state) {
+                if (state is SuccessGetteringChapters) {
+                  return listChapters(state.chaptersModel);
+                }
 
-            return Text("loading");
-          },
-        ),
-      ),
-    );
+                return Text("loading");
+              },
+            ),
+          ),
+        ));
   }
 }

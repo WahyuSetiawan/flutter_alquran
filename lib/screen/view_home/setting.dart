@@ -11,6 +11,9 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Setting"),
+      ),
       body: Column(
         children: [
           ListTile(

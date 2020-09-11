@@ -35,7 +35,6 @@ class ThemeCubit extends Cubit<ThemeData> {
       foregroundColor: Colors.white,
     ),
     brightness: Brightness.light,
-    primaryColor: Colors.white,
   );
 
   static final _darkTheme = ThemeData(
@@ -43,7 +42,6 @@ class ThemeCubit extends Cubit<ThemeData> {
       foregroundColor: Colors.black,
     ),
     brightness: Brightness.dark,
-    primaryColor: Colors.black,
   );
 
   /// Toggles the current brightness between light and dark.

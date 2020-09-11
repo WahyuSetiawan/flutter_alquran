@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'view_home/dashboard.dart';
+import 'view_home/list_chapter.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -89,8 +90,11 @@ class _HomeStateState extends State<HomePage> {
             body: IndexedStack(
               index: PageNavigationBar.values.indexOf(pageNavigationBar),
               children: [
-                DashboardPage(),
-                ListChapterAlQuran(
+                DashboardPage(
+                  chaptersBloc: this._chapterBloc,
+                  versesBloc: this._versesBloc,
+                ),
+                ListChapterAlQuranPage(
                   chaptersBloc: this._chapterBloc,
                   versesBloc: this._versesBloc,
                 ),
@@ -98,7 +102,7 @@ class _HomeStateState extends State<HomePage> {
                 SettingPage(),
               ],
             ),
-            bottomNavigationBar: bottomNavigation(pageNavigationBar),
+            // bottomNavigationBar: bottomNavigation(pageNavigationBar),
           ),
         ));
   }
