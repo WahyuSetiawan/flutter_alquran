@@ -37,22 +37,14 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               Text(
                 "Bandung",
-                style: TextStyle(
-                  fontFamily: "roboto",
-                  fontSize: 12,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context).textTheme.subtitle2,
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
                 dateFormat.format(DateTime.now()).toString(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontFamily: "roboto",
-                ),
+                style: Theme.of(context).textTheme.subtitle2,
               ),
             ],
           ),
@@ -80,10 +72,7 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               Text(
                 "Last reading",
-                style: TextStyle(
-                  fontFamily: "roboto",
-                  color: Color(0xFF545454),
-                ),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               Expanded(child: Stack())
             ],
@@ -115,9 +104,7 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               Text(
                 "List Bookmark",
-                style: TextStyle(
-                  fontFamily: "roboto",
-                ),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               Expanded(child: Stack())
             ],
@@ -152,9 +139,7 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               Text(
                 "List Chapter",
-                style: TextStyle(
-                  fontFamily: "roboto",
-                ),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               Expanded(child: Stack())
             ],
@@ -186,9 +171,7 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               Text(
                 "Setting",
-                style: TextStyle(
-                  fontFamily: "roboto",
-                ),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               Expanded(child: Stack())
             ],

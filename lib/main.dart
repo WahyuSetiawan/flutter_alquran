@@ -66,7 +66,7 @@ class ThemeCubit extends Cubit<ThemeData> {
       ),
       subtitle2: TextStyle(
         fontFamily: "roboto",
-        fontSize: 12,
+        fontSize: 14,
         color: Color(0xFF545454),
       ),
     ),
