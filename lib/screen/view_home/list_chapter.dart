@@ -40,13 +40,7 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
             child: Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                      // border: Border(
-                      //     bottom: BorderSide(
-                      //   color: Color(0x88696969),
-                      //   width: 1,
-                      // )),
-                      ),
+                  decoration: BoxDecoration(),
                   padding: EdgeInsets.only(
                     top: 20,
                     bottom: 20,
