@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         builder: (_, theme) {
           return MaterialApp(
             title: 'Al Quran',
-            theme: ThemeCubit._lightTheme,
+            theme: ThemeCubit._browseTheme,
             home: HomePage(),
           );
         },
@@ -35,6 +35,24 @@ class ThemeCubit extends Cubit<ThemeData> {
     backgroundColor: Color(0xffFFFFDB),
     primaryColor: Color(0xff968251),
     fontFamily: 'roboto',
+    textTheme: TextTheme(
+      button: TextStyle(
+        color: Color(
+          0xff0d0d0d,
+        ),
+      ),
+    ),
+  );
+
+  static final _browseTheme = ThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      foregroundColor: Colors.white,
+    ),
+    brightness: Brightness.light,
+    backgroundColor: Color(0xffFFFFDB),
+    primaryColor: Color(0xff968251),
+    fontFamily: 'roboto',
+    dividerColor: Color(0x88696969),
     textTheme: TextTheme(
       button: TextStyle(
         color: Color(
