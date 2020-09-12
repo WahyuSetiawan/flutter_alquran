@@ -23,94 +23,97 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
     return ListView.builder(
       itemCount: chaptersModel.chapters.length,
       padding: EdgeInsets.only(top: 0),
-      itemBuilder: (context, index) {
-        return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) {
-                  return PageVerses(
-                    chapter_id: chaptersModel.chapters[index],
-                  );
-                },
-              ));
+      itemBuilder: (context, index) =>
+          itemListViewChapter(chaptersModel.chapters[index], index),
+    );
+  }
+
+  Widget itemListViewChapter(Chapters chaptersModel, int index) {
+    return GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) {
+              return PageVerses(
+                chapter_id: chaptersModel,
+              );
             },
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(),
-                  padding: EdgeInsets.only(
-                    top: 15,
-                    bottom: 15,
-                    left: 10,
-                    right: 10,
+          ));
+        },
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(),
+              padding: EdgeInsets.only(
+                top: 15,
+                bottom: 15,
+                left: 10,
+                right: 10,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 40,
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      (index + 1).toString(),
+                      style: TextStyle(
+                        fontFamily: "roboto",
+                        color: Color(0xff696969),
+                      ),
+                    ),
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 40,
-                        alignment: Alignment.topCenter,
-                        child: Text(
-                          (index + 1).toString(),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          chaptersModel.nameSimple,
                           style: TextStyle(
                             fontFamily: "roboto",
+                            fontSize: 16,
                             color: Color(0xff696969),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              chaptersModel.chapters[index].nameSimple,
-                              style: TextStyle(
-                                fontFamily: "roboto",
-                                fontSize: 16,
-                                color: Color(0xff696969),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              "${chaptersModel.chapters[index].revelationPlace} | ${chaptersModel.chapters[index].versesCount} ayat",
-                              style: TextStyle(
-                                fontFamily: "roboto",
-                                fontSize: 11,
-                                letterSpacing: .5,
-                                color: Color(0xff696969),
-                              ),
-                            )
-                          ],
+                        SizedBox(
+                          height: 4,
                         ),
-                      ),
-                      Container(
-                        child: Text(
-                          chaptersModel.chapters[index].nameArabic,
+                        Text(
+                          "${chaptersModel.revelationPlace} | ${chaptersModel.versesCount} ayat",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
                             fontFamily: "roboto",
-                            fontSize: 20,
-                            color: Theme.of(context).primaryColor,
+                            fontSize: 11,
+                            letterSpacing: .5,
+                            color: Color(0xff696969),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  color: Theme.of(context).dividerColor,
-                  margin: EdgeInsets.only(left: 40, right: 30),
-                  height: 1,
-                )
-              ],
-            ));
-      },
-    );
+                  Container(
+                    child: Text(
+                      chaptersModel.nameArabic,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "roboto",
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              color: Theme.of(context).dividerColor,
+              margin: EdgeInsets.only(left: 40, right: 30),
+              height: 1,
+            )
+          ],
+        ));
   }
 
   Widget header() {
@@ -181,7 +184,10 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
                         return listChapters(state.chaptersModel);
                       }
 
-                      return Text("loading");
+                      return Expanded(
+                          child: Center(
+                        child: CircularProgressIndicator(),
+                      ));
                     },
                   ),
                 ),

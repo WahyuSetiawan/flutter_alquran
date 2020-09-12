@@ -176,10 +176,11 @@ class _PageVersesState extends State<PageVerses> {
                             DatabaseBookmark.db
                                 .insertBookmark(BookmarkModel(
                                     id: null,
-                                    jsonChapter: jsonEncode(
-                                        widget.chapter_id.toJson().toString()),
-                                    jsonVerses:
-                                        jsonEncode(verse.toJson().toString()),
+                                    jsonChapter: jsonEncode(HtmlEscape()
+                                        .convert(jsonEncode(
+                                            widget.chapter_id.toJson()))),
+                                    jsonVerses: HtmlEscape().convert(
+                                        jsonEncode(jsonEncode(verse.toJson()))),
                                     numberVerse: index))
                                 .then((value) {});
                           },
