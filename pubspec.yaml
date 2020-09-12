@@ -22,6 +22,8 @@ dependencies:
   intl: ^0.16.1
   dio: ^3.0.10
   flutter_staggered_grid_view: "^0.3.2"
+  just_audio: ^0.4.3
+  path: ^1.7.0
 
 dev_dependencies:
   flutter_test:
@@ -34,3 +36,5 @@ flutter:
     - family: roboto
       fonts:
         - asset: assets/font/Roboto-Regular.ttf
+        - asset: assets/font/Roboto-Bold.ttf
+          weight: 700

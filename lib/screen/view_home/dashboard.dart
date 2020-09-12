@@ -1,5 +1,6 @@
 import 'package:alquran/bloc/bloc_chapters.dart';
 import 'package:alquran/bloc/bloc_verses.dart';
+import 'package:alquran/bloc/cubit_bookmark.dart';
 import 'package:alquran/screen/view_home/list_bookmark.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -10,13 +11,14 @@ import 'setting.dart';
 
 class DashboardPage extends StatefulWidget {
   final ChaptersBloc chaptersBloc;
-  final VersesBloc versesBloc;
+  final CubitBookmark cubitBookmark;
 
   DashboardPage({
     Key key,
     this.chaptersBloc,
-    this.versesBloc,
-  }) : super(key: key);
+    CubitBookmark bookmarkCubit,
+  })  : this.cubitBookmark = bookmarkCubit,
+        super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -87,7 +89,9 @@ class _DashboardPageState extends State<DashboardPage> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) {
-            return ListBookmarkPage();
+            return ListBookmarkPage(
+              cubitBookmark: widget.cubitBookmark,
+            );
           },
         ));
       },
@@ -121,7 +125,6 @@ class _DashboardPageState extends State<DashboardPage> {
           builder: (context) {
             return ListChapterAlQuranPage(
               chaptersBloc: widget.chaptersBloc,
-              versesBloc: widget.versesBloc,
             );
           },
         ));

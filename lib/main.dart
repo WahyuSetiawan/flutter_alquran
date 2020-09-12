@@ -72,13 +72,12 @@ class ThemeCubit extends Cubit<ThemeData> {
       bodyText1: TextStyle(
         fontFamily: "roboto",
         fontSize: 12,
-        fontWeight: FontWeight.bold,
         color: Color(0xFF545454),
       ),
       bodyText2: TextStyle(
         fontFamily: "roboto",
-        fontSize: 12,
-        letterSpacing: 1.5,
+        fontSize: 10,
+        letterSpacing: 1,
         color: Color(0xFF545454),
       ),
     ),

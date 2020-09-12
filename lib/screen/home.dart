@@ -2,6 +2,7 @@ import 'package:alquran/bloc/bloc_chapters.dart';
 import 'package:alquran/bloc/bloc_home.dart';
 import 'package:alquran/bloc/bloc_item_bottom_navigation.dart';
 import 'package:alquran/bloc/bloc_verses.dart';
+import 'package:alquran/bloc/cubit_bookmark.dart';
 import 'package:alquran/screen/view_home/last_reading.dart';
 import 'package:alquran/screen/view_home/list_chapter.dart';
 import 'package:alquran/screen/view_home/setting.dart';
@@ -23,7 +24,7 @@ class _HomeStateState extends State<HomePage> {
   TranslationsBloc _translationsBloc;
   ChaptersBloc _chapterBloc;
   NavigationBloc _navigationBloc;
-  VersesBloc _versesBloc;
+  CubitBookmark _cubitBookmark;
 
   @override
   void initState() {
@@ -36,7 +37,8 @@ class _HomeStateState extends State<HomePage> {
     this._navigationBloc = NavigationBloc();
     this._navigationBloc.add(PageNavigationBar.Dashboard);
 
-    this._versesBloc = VersesBloc();
+    this._cubitBookmark = CubitBookmark();
+    this._cubitBookmark.getData();
 
     super.initState();
   }
@@ -81,16 +83,13 @@ class _HomeStateState extends State<HomePage> {
           BlocProvider(
             create: (context) => this._navigationBloc,
           ),
-          BlocProvider(
-            create: (context) => this._versesBloc,
-          )
         ],
         child: BlocBuilder<NavigationBloc, PageNavigationBar>(
           builder: (context, pageNavigationBar) => Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             body: DashboardPage(
               chaptersBloc: this._chapterBloc,
-              versesBloc: this._versesBloc,
+              bookmarkCubit: this._cubitBookmark,
             ),
             // bottomNavigationBar: bottomNavigation(pageNavigationBar),
           ),

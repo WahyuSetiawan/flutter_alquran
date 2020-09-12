@@ -8,12 +8,10 @@ import '../verse_page.dart';
 
 class ListChapterAlQuranPage extends StatefulWidget {
   final ChaptersBloc chaptersBloc;
-  final VersesBloc versesBloc;
 
   ListChapterAlQuranPage({
     Key key,
     @required this.chaptersBloc,
-    @required this.versesBloc,
   }) : super(key: key);
 
   @override
@@ -32,7 +30,6 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
                 builder: (context) {
                   return PageVerses(
                     chapter_id: chaptersModel.chapters[index],
-                    versesBloc: widget.versesBloc,
                   );
                 },
               ));
@@ -42,17 +39,18 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
                 Container(
                   decoration: BoxDecoration(),
                   padding: EdgeInsets.only(
-                    top: 20,
-                    bottom: 20,
-                    left: 20,
-                    right: 20,
+                    top: 15,
+                    bottom: 15,
+                    left: 10,
+                    right: 10,
                   ),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
+                        width: 40,
                         alignment: Alignment.topCenter,
-                        padding: EdgeInsets.only(right: 20),
                         child: Text(
                           (index + 1).toString(),
                           style: TextStyle(
@@ -65,6 +63,7 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
                         flex: 1,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               chaptersModel.chapters[index].nameSimple,
@@ -75,31 +74,28 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
                               ),
                             ),
                             SizedBox(
-                              height: 2,
+                              height: 4,
                             ),
                             Text(
                               "${chaptersModel.chapters[index].revelationPlace} | ${chaptersModel.chapters[index].versesCount} ayat",
                               style: TextStyle(
                                 fontFamily: "roboto",
-                                fontSize: 12,
+                                fontSize: 11,
+                                letterSpacing: .5,
                                 color: Color(0xff696969),
                               ),
                             )
                           ],
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          alignment: Alignment.topRight,
-                          child: Text(
-                            chaptersModel.chapters[index].nameArabic,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "roboto",
-                              fontSize: 20,
-                              color: Theme.of(context).primaryColor,
-                            ),
+                      Container(
+                        child: Text(
+                          chaptersModel.chapters[index].nameArabic,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "roboto",
+                            fontSize: 20,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       )
@@ -108,7 +104,7 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
                 ),
                 Container(
                   color: Theme.of(context).dividerColor,
-                  margin: EdgeInsets.only(left: 30, right: 30),
+                  margin: EdgeInsets.only(left: 40, right: 30),
                   height: 1,
                 )
               ],
@@ -119,6 +115,17 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
 
   Widget header() {
     return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).dividerColor,
+            blurRadius: 5,
+            spreadRadius: 2,
+            offset: Offset(1, 1),
+          )
+        ],
+      ),
       padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top,
@@ -157,9 +164,6 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
           BlocProvider(
             create: (context) => widget.chaptersBloc,
           ),
-          BlocProvider(
-            create: (context) => widget.versesBloc,
-          )
         ],
         child: Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
