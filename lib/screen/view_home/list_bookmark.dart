@@ -78,6 +78,7 @@ class _ListBookmarkPageState extends State<ListBookmarkPage> {
             builder: (context) {
               return PageVerses(
                 chapter_id: chaptersModel,
+                column_number: bookmarkModel.numberVerse,
               );
             },
           ));
@@ -104,6 +105,7 @@ class _ListBookmarkPageState extends State<ListBookmarkPage> {
                       style: TextStyle(
                         fontFamily: "roboto",
                         color: Color(0xff696969),
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -138,7 +140,7 @@ class _ListBookmarkPageState extends State<ListBookmarkPage> {
                   ),
                   Container(
                     child: Text(
-                      chaptersModel.nameArabic,
+                      (bookmarkModel.numberVerse + 1).toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: "roboto",

@@ -10,11 +10,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PageVerses extends StatefulWidget {
   final Chapters chapter_id;
+  final int column_number;
 
   PageVerses({
     Key key,
-    this.chapter_id,
-  }) : super(key: key);
+    @required this.chapter_id,
+    int column_number,
+  })  : this.column_number = column_number,
+        super(key: key);
 
   @override
   _PageVersesState createState() => _PageVersesState();
@@ -22,6 +25,7 @@ class PageVerses extends StatefulWidget {
 
 class _PageVersesState extends State<PageVerses> {
   VersesBloc _versesBloc;
+  ScrollController _scrollController;
 
   @override
   void initState() {
@@ -32,6 +36,8 @@ class _PageVersesState extends State<PageVerses> {
     this._versesBloc.add(VerseProvider(
           id: widget.chapter_id.id,
         ));
+
+    this._scrollController = ScrollController();
   }
 
   Widget header() {
@@ -210,19 +216,19 @@ class _PageVersesState extends State<PageVerses> {
         child: Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           body: BlocBuilder<VersesBloc, VerseState>(
+            buildWhen: (previous, current) {},
             builder: (context, state) {
               if (state is SuccessVerse) {
                 return Column(
                   children: [
                     header(),
                     Expanded(
-                      child: Container(
-                        child: ListView.builder(
-                            itemCount: state.versesModel.verses.length,
-                            padding: EdgeInsets.only(top: 10),
-                            itemBuilder: (context, index) => itemVerser(
-                                state.versesModel.verses[index], index)),
-                      ),
+                      child: ListView.builder(
+                          controller: this._scrollController,
+                          itemCount: state.versesModel.verses.length,
+                          padding: EdgeInsets.only(top: 10),
+                          itemBuilder: (context, index) => itemVerser(
+                              state.versesModel.verses[index], index)),
                     )
                   ],
                 );
