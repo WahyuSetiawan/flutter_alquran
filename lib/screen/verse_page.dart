@@ -9,6 +9,7 @@ import 'package:alquran/model/verses/verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:html_unescape/html_unescape_small.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class PageVerses extends StatefulWidget {
@@ -169,6 +170,13 @@ class _PageVersesState extends State<PageVerses> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
+                          onTap: () {
+                            var player = AudioPlayer();
+
+                            player.setUrl(verse.audio.url);
+
+                            player.play();
+                          },
                           child: Icon(
                             Icons.play_arrow,
                             size: 16,

@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+
 class VerseModel {
   Verse verse;
 
@@ -30,6 +34,7 @@ class Verse {
   String sajdah;
   int sajdahNumber;
   int pageNumber;
+  Audio audio;
   List<MediaContents> mediaContents;
   List<Words> words;
 
@@ -46,6 +51,7 @@ class Verse {
       this.rubNumber,
       this.sajdah,
       this.sajdahNumber,
+      this.audio,
       this.pageNumber,
       this.mediaContents,
       this.words});
@@ -64,6 +70,9 @@ class Verse {
     sajdah = json['sajdah'];
     sajdahNumber = json['sajdah_number'];
     pageNumber = json['page_number'];
+    if (json["audio"] != null) {
+      this.audio = Audio.fromJson(json["audio"]);
+    }
     if (json['media_contents'] != null) {
       mediaContents = new List<MediaContents>();
       json['media_contents'].forEach((v) {
@@ -99,6 +108,9 @@ class Verse {
     }
     if (this.words != null) {
       data['words'] = this.words.map((v) => v.toJson()).toList();
+    }
+    if (this.audio != null) {
+      data["audio"] = this.audio.toJson();
     }
     return data;
   }
