@@ -141,7 +141,7 @@ class _PageVersesState extends State<PageVerses> {
                         softWrap: true,
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               color: Color(0xff968251),
-                              fontSize: 16,
+                              fontSize: 18,
                               letterSpacing: 2,
                               height: 1.5,
                             ),
