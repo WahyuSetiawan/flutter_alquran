@@ -162,40 +162,45 @@ class _ListBookmarkPageState extends State<ListBookmarkPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    context.bloc<CubitBookmark>().refreshData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => widget.cubitBookmark,
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Column(
+        children: [
+          header(),
+          BlocBuilder<CubitBookmark, CubitBookmarkState>(
+            builder: (context, state) {
+              if (state is SuccessCubitBookmarkState) {
+                return Expanded(
+                    child: ListView.builder(
+                  padding: EdgeInsets.only(top: 0),
+                  itemCount: context.bloc<CubitBookmark>().bookmarkModel.length,
+                  itemBuilder: (context, index) {
+                    return itemContainerBookmark(
+                      context.bloc<CubitBookmark>().bookmarkModel[index],
+                      index,
+                    );
+                  },
+                ));
+              }
+
+              return Expanded(
+                child: Center(
+                  child: Text("Loading"),
+                ),
+              );
+            },
           )
         ],
-        child: Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
-          body: Column(
-            children: [
-              header(),
-              BlocBuilder<CubitBookmark, CubitBookmarkState>(
-                builder: (context, state) {
-                  if (state is SuccessCubitBookmarkState) {
-                    return Expanded(
-                        child: ListView.builder(
-                      padding: EdgeInsets.only(top: 0),
-                      itemCount: state.listBokmark.length,
-                      itemBuilder: (context, index) {
-                        return itemContainerBookmark(
-                            state.listBokmark[index], index);
-                      },
-                    ));
-                  }
-
-                  return Expanded(
-                      child: Center(
-                    child: Text("Loading"),
-                  ));
-                },
-              )
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }

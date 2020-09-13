@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 
 class BookmarkModel {
   int id;
+  // ignore: non_constant_identifier_names
+  int id_chapter;
   String jsonChapter;
   String jsonVerses;
   int numberVerse;
 
   BookmarkModel({
     @required this.id,
+    @required this.id_chapter,
     @required this.jsonChapter,
     @required this.jsonVerses,
     @required this.numberVerse,
@@ -17,12 +20,14 @@ class BookmarkModel {
 
   BookmarkModel copyWith({
     int id,
+    int id_chapter,
     String jsonChapter,
     String jsonVerses,
     int numberVerse,
   }) {
     return BookmarkModel(
       id: id ?? this.id,
+      id_chapter: id_chapter ?? this.id_chapter,
       jsonChapter: jsonChapter ?? this.jsonChapter,
       jsonVerses: jsonVerses ?? this.jsonVerses,
       numberVerse: numberVerse ?? this.numberVerse,
@@ -32,6 +37,7 @@ class BookmarkModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'id_chapter': id_chapter,
       'jsonChapter': jsonChapter,
       'jsonVerses': jsonVerses,
       'numberVerse': numberVerse,
@@ -43,6 +49,7 @@ class BookmarkModel {
 
     return BookmarkModel(
       id: map['id'],
+      id_chapter: map['id_chapter'],
       jsonChapter: map['jsonChapter'],
       jsonVerses: map['jsonVerses'],
       numberVerse: map['numberVerse'],
@@ -56,7 +63,7 @@ class BookmarkModel {
 
   @override
   String toString() {
-    return 'BookmarkModel(id: $id, jsonChapter: $jsonChapter, jsonVerses: $jsonVerses, numberVerse: $numberVerse)';
+    return 'BookmarkModel(id: $id, id_chapter: $id_chapter, jsonChapter: $jsonChapter, jsonVerses: $jsonVerses, numberVerse: $numberVerse)';
   }
 
   @override
@@ -65,6 +72,7 @@ class BookmarkModel {
 
     return o is BookmarkModel &&
         o.id == id &&
+        o.id_chapter == id_chapter &&
         o.jsonChapter == jsonChapter &&
         o.jsonVerses == jsonVerses &&
         o.numberVerse == numberVerse;
@@ -73,6 +81,7 @@ class BookmarkModel {
   @override
   int get hashCode {
     return id.hashCode ^
+        id_chapter.hashCode ^
         jsonChapter.hashCode ^
         jsonVerses.hashCode ^
         numberVerse.hashCode;

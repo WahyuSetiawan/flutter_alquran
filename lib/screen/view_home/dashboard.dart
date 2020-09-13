@@ -11,15 +11,10 @@ import 'list_chapter.dart';
 import 'setting.dart';
 
 class DashboardPage extends StatefulWidget {
-  final ChaptersBloc chaptersBloc;
-  final CubitBookmark cubitBookmark;
-
   DashboardPage({
     Key key,
-    this.chaptersBloc,
     CubitBookmark bookmarkCubit,
-  })  : this.cubitBookmark = bookmarkCubit,
-        super(key: key);
+  }) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -99,9 +94,7 @@ class _DashboardPageState extends State<DashboardPage> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) {
-            return ListBookmarkPage(
-              cubitBookmark: widget.cubitBookmark,
-            );
+            return ListBookmarkPage();
           },
         ));
       },
@@ -133,9 +126,7 @@ class _DashboardPageState extends State<DashboardPage> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) {
-            return ListChapterAlQuranPage(
-              chaptersBloc: widget.chaptersBloc,
-            );
+            return ListChapterAlQuranPage();
           },
         ));
       },

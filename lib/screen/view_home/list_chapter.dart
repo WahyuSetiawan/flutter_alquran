@@ -1,5 +1,6 @@
 import 'package:alquran/bloc/bloc_chapters.dart';
 import 'package:alquran/bloc/bloc_verses.dart';
+import 'package:alquran/bloc/cubit_bookmark.dart';
 import 'package:alquran/model/chapters/chapters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,11 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../verse_page.dart';
 
 class ListChapterAlQuranPage extends StatefulWidget {
-  final ChaptersBloc chaptersBloc;
-
   ListChapterAlQuranPage({
     Key key,
-    @required this.chaptersBloc,
   }) : super(key: key);
 
   @override
@@ -33,9 +31,7 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) {
-              return PageVerses(
-                chapter_id: chaptersModel,
-              );
+              return PageVerses(chapter_id: chaptersModel);
             },
           ));
         },
@@ -162,38 +158,32 @@ class _ListChapterAlQuranPageState extends State<ListChapterAlQuranPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => widget.chaptersBloc,
-          ),
-        ],
-        child: Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
-          // appBar: AppBar(
-          //   title: Text("List Chipter"),
-          // ),
-          body: Column(
-            children: [
-              header(),
-              Expanded(
-                child: Container(
-                  child: BlocBuilder<ChaptersBloc, ChaptersState>(
-                    builder: (context, state) {
-                      if (state is SuccessGetteringChapters) {
-                        return listChapters(state.chaptersModel);
-                      }
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      // appBar: AppBar(
+      //   title: Text("List Chipter"),
+      // ),
+      body: Column(
+        children: [
+          header(),
+          Expanded(
+            child: Container(
+              child: BlocBuilder<ChaptersBloc, ChaptersState>(
+                builder: (context, state) {
+                  if (state is SuccessGetteringChapters) {
+                    return listChapters(state.chaptersModel);
+                  }
 
-                      return Expanded(
-                          child: Center(
-                        child: CircularProgressIndicator(),
-                      ));
-                    },
-                  ),
-                ),
-              )
-            ],
-          ),
-        ));
+                  return Expanded(
+                      child: Center(
+                    child: CircularProgressIndicator(),
+                  ));
+                },
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

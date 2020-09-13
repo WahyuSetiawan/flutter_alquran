@@ -27,4 +27,40 @@ class CubitBookmark extends Cubit<CubitBookmarkState> {
 
     emit(SuccessCubitBookmarkState(listBokmark: this.bookmarkModel));
   }
+
+  Future<void> insertBookmark(BookmarkModel model) async {
+    int index = this.bookmarkModel.indexWhere((element) =>
+        element.id_chapter == model.id_chapter &&
+        element.numberVerse == model.numberVerse);
+
+    if (index == -1) {
+      print("insert chapter ${model.id_chapter}");
+
+      this.bookmarkModel.add(model);
+
+      await DatabaseBookmark.db.insertBookmark(model);
+
+      emit(SuccessCubitBookmarkState(listBokmark: this.bookmarkModel));
+    }
+
+    return;
+  }
+
+  Future<void> deleteBookmark(int id) async {
+    int index = this.bookmarkModel.indexWhere((element) => element.id == id);
+
+    print("remove data at $id");
+
+    if (index >= 0) {
+      this.bookmarkModel.removeAt(index);
+
+      await DatabaseBookmark.db.deleteBookmark(id);
+
+      emit(SuccessCubitBookmarkState(listBokmark: this.bookmarkModel));
+    }
+  }
+
+  void refreshData() {
+    emit(SuccessCubitBookmarkState(listBokmark: this.bookmarkModel));
+  }
 }

@@ -24,13 +24,27 @@ class DatabaseBookmark {
         return await db.execute('''
             CREATE TABLE bookmark(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id_chapter INTEGER NOT NULL,
                 jsonChapter TEXT NOT NULL,
                 jsonVerses TEXT NOT NULL, 
                 numberVerse INTEGER NOT NULL
             )
           ''');
       },
-      version: 1,
+      onUpgrade: (db, oldVersion, newVersion) async {
+        await db.execute("drop table bookmark");
+
+        return await db.execute('''
+            CREATE TABLE bookmark(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id_chapter INTEGER NOT NULL,
+                jsonChapter TEXT NOT NULL,
+                jsonVerses TEXT NOT NULL, 
+                numberVerse INTEGER NOT NULL
+            )
+          ''');
+      },
+      version: 2,
     );
   }
 
