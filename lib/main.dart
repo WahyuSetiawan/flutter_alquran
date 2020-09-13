@@ -48,24 +48,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => this._translationsBloc,
-        ),
-        BlocProvider(
-          create: (context) => this._chapterBloc,
-        ),
-        BlocProvider(
-          create: (context) => this._navigationBloc,
-        ),
-        BlocProvider(
-          create: (context) => this._cubitBookmark,
-        ),
-        BlocProvider(
-          create: (context) => ThemeCubit(),
-        ),
-        BlocProvider(
-          create: (context) => this._versesBloc,
-        )
+        BlocProvider(create: (context) => this._translationsBloc),
+        BlocProvider(create: (context) => this._chapterBloc),
+        BlocProvider(create: (context) => this._navigationBloc),
+        BlocProvider(create: (context) => this._cubitBookmark),
+        BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => this._versesBloc)
       ],
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (_, theme) {

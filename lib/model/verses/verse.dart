@@ -179,7 +179,7 @@ class Words {
     id = json['id'];
     position = json['position'];
     textMadani = json['text_madani'];
-    textIndopak = json['text_indopak'];
+    textIndopak = json['text_indopak'] == Null ? "" : json['text_indopak'];
     textSimple = json['text_simple'];
     verseKey = json['verse_key'];
     className = json['class_name'];

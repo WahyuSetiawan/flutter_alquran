@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:alquran/bloc/bloc_verses.dart';
 import 'package:alquran/bloc/cubit_bookmark.dart';
-import 'package:alquran/database/database_bookmark.dart';
 import 'package:alquran/database/model/bookmark.dart';
 import 'package:alquran/model/chapters/chapters.dart';
 import 'package:alquran/model/verses/verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:html_unescape/html_unescape_small.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
