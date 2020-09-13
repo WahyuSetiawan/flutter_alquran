@@ -5,8 +5,6 @@ class Prefs {
 
   static final Prefs prefs = Prefs._();
 
-  String language;
-
   Future<bool> setLanguage(String language) async {
     SharedPreferences sharePreferences = await SharedPreferences.getInstance();
 
@@ -16,5 +14,15 @@ class Prefs {
   Future<String> getLanguage() async {
     return (await SharedPreferences.getInstance()).getString("key_language") ??
         "id";
+  }
+
+  Future<bool> setLastRead(int chapterId, int numberVerse) async {
+    return (await SharedPreferences.getInstance())
+        .setString("last_reading", "${chapterId}_$numberVerse");
+  }
+
+  Future<String> getLastRead() async {
+    return (await SharedPreferences.getInstance()).getString("last_reading") ??
+        "";
   }
 }

@@ -4,6 +4,7 @@ import 'package:alquran/bloc/bloc_item_bottom_navigation.dart';
 import 'package:alquran/bloc/bloc_verses.dart';
 import 'package:alquran/bloc/cubit_bookmark.dart';
 import 'package:alquran/bloc/cubit_language.dart';
+import 'package:alquran/bloc/cubit_last_reading.dart';
 import 'package:alquran/bloc/cubit_theme.dart';
 import 'package:alquran/screen/home.dart';
 import 'package:alquran/sharedpreferences/sharedprefrerences.dart';
@@ -31,6 +32,8 @@ class _MyAppState extends State<MyApp> {
   CubitLangugage _cubitLangugage;
   ThemeCubit _themeCubit;
 
+  CubitLastReading _cubitLastReading;
+
   @override
   void initState() {
     this._translationsBloc = TranslationsBloc();
@@ -51,6 +54,9 @@ class _MyAppState extends State<MyApp> {
 
     this._themeCubit = ThemeCubit();
 
+    this._cubitLastReading = CubitLastReading();
+    this._cubitLastReading.getDataLastReading();
+
     super.initState();
 
     Prefs.prefs.getLanguage().then((value) {
@@ -70,7 +76,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => this._cubitBookmark),
         BlocProvider(create: (context) => this._themeCubit),
         BlocProvider(create: (context) => this._cubitLangugage),
-        BlocProvider(create: (context) => this._versesBloc)
+        BlocProvider(create: (context) => this._versesBloc),
+        BlocProvider(create: (context) => this._cubitLastReading)
       ],
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (_, theme) {

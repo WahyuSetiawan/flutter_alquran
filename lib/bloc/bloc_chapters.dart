@@ -26,6 +26,8 @@ class ChapterProvider {
 class ChaptersBloc extends Bloc<ChapterProvider, ChaptersState> {
   ChaptersBloc() : super(LoadingGetteringChapters());
 
+  ChaptersModel chaptersModel;
+
   @override
   Stream<ChaptersState> mapEventToState(ChapterProvider event) async* {
     yield LoadingGetteringChapters();
@@ -39,7 +41,9 @@ class ChaptersBloc extends Bloc<ChapterProvider, ChaptersState> {
     }
 
     if (data is ChaptersModel) {
-      yield SuccessGetteringChapters(chaptersModel: data);
+      this.chaptersModel = data;
+
+      yield SuccessGetteringChapters(chaptersModel: this.chaptersModel);
     }
   }
 }

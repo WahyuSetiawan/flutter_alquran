@@ -1,9 +1,11 @@
 import 'package:alquran/bloc/bloc_chapters.dart';
-import 'package:alquran/bloc/bloc_verses.dart';
 import 'package:alquran/bloc/cubit_bookmark.dart';
+import 'package:alquran/bloc/cubit_last_reading.dart';
 import 'package:alquran/screen/search.dart';
 import 'package:alquran/screen/list_bookmark.dart';
+import 'package:alquran/screen/verse_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
 
@@ -34,58 +36,94 @@ class _DashboardPageState extends State<DashboardPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Bandung",
-                style: Theme.of(context).textTheme.subtitle2,
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
                 dateFormat.format(DateTime.now()).toString(),
                 style: Theme.of(context).textTheme.subtitle2,
               ),
             ],
           ),
-          GestureDetector(
-            child: Icon(
-              Icons.search,
-              color: Theme.of(context).primaryColor,
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) {
-                  return SearchPage();
-                },
-              ));
-            },
-          )
+          // GestureDetector(
+          //   child: Icon(
+          //     Icons.search,
+          //     color: Theme.of(context).primaryColor,
+          //   ),
+          //   onTap: () {
+          //     Navigator.of(context).push(MaterialPageRoute(
+          //       builder: (context) {
+          //         return SearchPage();
+          //       },
+          //     ));
+          //   },
+          // )
+          Container()
         ],
       ),
     );
   }
 
-  Widget lastReading() {
-    return GestureDetector(
-      child: Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFE3D764),
-          ),
-          height: 150,
-          padding: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Last reading",
-                style: Theme.of(context).textTheme.subtitle1,
+  Widget lastReading(BuildContext context) {
+    return BlocBuilder<CubitLastReading, LastReadingState>(
+      builder: (context, state) {
+        int chapterId;
+        int numberVerse;
+
+        if (state is SuccessChangeLastReadingState) {
+          if (state.chapterId != null && state.numberVerse != null) {
+            chapterId = state.chapterId;
+            numberVerse = state.numberVerse;
+          }
+
+          return GestureDetector(
+            onTap: () {
+              var index = context
+                  .bloc<ChaptersBloc>()
+                  .chaptersModel
+                  .chapters
+                  .indexWhere((element) => element.id == state.chapterId);
+
+              if (index >= 0) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) {
+                    return PageVerses(
+                      chapter_id: context
+                          .bloc<ChaptersBloc>()
+                          .chaptersModel
+                          .chapters[index],
+                      column_number: state.numberVerse,
+                    );
+                  },
+                ));
+              }
+            },
+            child: Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFFE3D764),
+                ),
+                height: 150,
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Last reading",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    Expanded(
+                        child: Center(
+                      child: Container(
+                        child: Text("Number verse $chapterId $numberVerse"),
+                      ),
+                    ))
+                  ],
+                ),
               ),
-              Expanded(child: Stack())
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        }
+
+        return Container();
+      },
     );
   }
 
@@ -189,7 +227,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     List<Widget> listWidgetList = [
       header(),
-      lastReading(),
+      lastReading(context),
       listChapter(),
       listBookmark(),
       setting(),

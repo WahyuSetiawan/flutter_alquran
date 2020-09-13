@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:alquran/bloc/bloc_verses.dart';
 import 'package:alquran/bloc/cubit_bookmark.dart';
 import 'package:alquran/bloc/cubit_language.dart';
+import 'package:alquran/bloc/cubit_last_reading.dart';
 import 'package:alquran/database/model/bookmark.dart';
 import 'package:alquran/model/chapters/chapters.dart';
 import 'package:alquran/model/verses/verse.dart';
@@ -28,6 +29,7 @@ class PageVerses extends StatefulWidget {
 
 class _PageVersesState extends State<PageVerses> {
   ItemScrollController _scrollController;
+  ItemPositionsListener _itemPositionsListener;
   AudioPlayer player;
 
   int verseCurrentPlay;
@@ -45,6 +47,12 @@ class _PageVersesState extends State<PageVerses> {
     this.playerPlay = false;
 
     this._scrollController = ItemScrollController();
+    this._itemPositionsListener = ItemPositionsListener.create();
+
+    this._itemPositionsListener.itemPositions.addListener(() {
+      context.bloc<CubitLastReading>().changeLastReading(widget.chapter_id.id,
+          this._itemPositionsListener.itemPositions.value.first.index);
+    });
 
     this.player = AudioPlayer();
     this.verseCurrentPlay = -1;
@@ -304,6 +312,7 @@ class _PageVersesState extends State<PageVerses> {
             if (state is SuccessVerse) {
               return Expanded(
                 child: ScrollablePositionedList.builder(
+                    itemPositionsListener: this._itemPositionsListener,
                     itemScrollController: this._scrollController,
                     itemCount: state.versesModel.verses.length,
                     padding: EdgeInsets.only(top: 10),
