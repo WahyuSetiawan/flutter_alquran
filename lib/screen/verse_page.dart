@@ -5,9 +5,9 @@ import 'package:alquran/bloc/cubit_bookmark.dart';
 import 'package:alquran/database/model/bookmark.dart';
 import 'package:alquran/model/chapters/chapters.dart';
 import 'package:alquran/model/verses/verse.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class PageVerses extends StatefulWidget {
@@ -27,6 +27,10 @@ class PageVerses extends StatefulWidget {
 
 class _PageVersesState extends State<PageVerses> {
   ItemScrollController _scrollController;
+  AudioPlayer player;
+
+  int verseCurrentPlay;
+  bool playerPlay, playerBufering;
 
   @override
   void initState() {
@@ -36,7 +40,30 @@ class _PageVersesState extends State<PageVerses> {
           id: widget.chapter_id.id,
         ));
 
+    this.playerPlay = false;
+
     this._scrollController = ItemScrollController();
+
+    this.player = AudioPlayer();
+    this.verseCurrentPlay = -1;
+
+    this.player.onPlayerStateChanged.listen((event) {
+      setState(() {
+        this.playerPlay = event == AudioPlayerState.PLAYING;
+      });
+    });
+
+    this.player.onDurationChanged.listen((event) {
+      if (event.inMilliseconds == 0) {
+        setState(() {
+          this.playerBufering = true;
+        });
+      } else {
+        setState(() {
+          this.playerBufering = false;
+        });
+      }
+    });
   }
 
   Widget header() {
@@ -169,14 +196,25 @@ class _PageVersesState extends State<PageVerses> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            var player = AudioPlayer();
+                            if (this.verseCurrentPlay == index &&
+                                this.playerPlay) {
+                              player.pause();
+                            } else {
+                              if (this.verseCurrentPlay != index) {
+                                player.play(verse.audio.url);
+                              } else {
+                                this.player.resume();
+                              }
 
-                            player.setUrl(verse.audio.url);
-
-                            player.play();
+                              setState(() {
+                                this.verseCurrentPlay = index;
+                              });
+                            }
                           },
                           child: Icon(
-                            Icons.play_arrow,
+                            this.verseCurrentPlay == index && this.playerPlay
+                                ? Icons.pause
+                                : Icons.play_arrow,
                             size: 16,
                           ),
                         ),

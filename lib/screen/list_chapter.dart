@@ -5,7 +5,7 @@ import 'package:alquran/model/chapters/chapters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../verse_page.dart';
+import 'verse_page.dart';
 
 class ListChapterAlQuranPage extends StatefulWidget {
   ListChapterAlQuranPage({

@@ -2,13 +2,13 @@ import 'package:alquran/bloc/bloc_chapters.dart';
 import 'package:alquran/bloc/bloc_verses.dart';
 import 'package:alquran/bloc/cubit_bookmark.dart';
 import 'package:alquran/screen/search.dart';
-import 'package:alquran/screen/view_home/list_bookmark.dart';
+import 'package:alquran/screen/list_bookmark.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
 
-import 'list_chapter.dart';
-import 'setting.dart';
+import 'view_home/../list_chapter.dart';
+import 'view_home/../setting.dart';
 
 class DashboardPage extends StatefulWidget {
   DashboardPage({
