@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:alquran/bloc/bloc_verses.dart';
 import 'package:alquran/bloc/cubit_bookmark.dart';
+import 'package:alquran/bloc/cubit_language.dart';
 import 'package:alquran/database/model/bookmark.dart';
 import 'package:alquran/model/chapters/chapters.dart';
 import 'package:alquran/model/verses/verse.dart';
@@ -38,6 +39,7 @@ class _PageVersesState extends State<PageVerses> {
 
     context.bloc<VersesBloc>().add(VerseProvider(
           id: widget.chapter_id.id,
+          language: context.bloc<CubitLangugage>().currentLanguge,
         ));
 
     this.playerPlay = false;

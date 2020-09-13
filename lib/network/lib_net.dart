@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:alquran/model/chapters/chapters.dart';
+import 'package:alquran/model/options/language.dart';
 import 'package:alquran/model/options/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-import '../model/verses/verse.dart';
 import '../model/verses/verses.dart';
 
 String url = "http://api.quran.com:3000/api/v3";
@@ -21,11 +21,13 @@ Future<Object> getDataTranslations() async {
   }
 }
 
-Future<Object> getDataChapters() async {
-  var conn = await http.get("$url/chapters");
+Future<Object> getDataChapters({String language}) async {
+  var conn = await Dio().get("$url/chapters", queryParameters: {
+    "language": language,
+  });
 
   if (conn.statusCode == 200) {
-    return ChaptersModel.fromJson(json.decode(conn.body));
+    return ChaptersModel.fromJson(conn.data);
   } else {
     return null;
   }
@@ -47,9 +49,18 @@ Future<Object> getDataVerse({
   );
 
   if (response.statusCode == 200) {
-    print(response.data["verses"]);
-
+    print(response.request.uri);
     return VersesModel.fromJson(response.data);
+  } else {
+    return null;
+  }
+}
+
+Future<Object> getDataLanguage() async {
+  Response response = await Dio().get("$url/options/languages");
+
+  if (response.statusCode == 200) {
+    return Language.fromJson(response.data);
   } else {
     return null;
   }

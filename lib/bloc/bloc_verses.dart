@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../model/verses/verse.dart';
 import '../model/verses/verses.dart';
 import '../network/lib_net.dart';
 
@@ -12,7 +11,8 @@ class VersesBloc extends Bloc<VerseProvider, VerseState> {
   Stream<VerseState> mapEventToState(VerseProvider event) async* {
     yield LoadingVerse();
 
-    var data = await getDataVerse(chapter_id: event.id);
+    var data =
+        await getDataVerse(chapter_id: event.id, language: event.language);
 
     if (data == null) {
       yield FailedVerse();
@@ -38,6 +38,10 @@ class FailedVerse extends VerseState {}
 
 class VerseProvider {
   int id;
+  String language;
 
-  VerseProvider({@required this.id});
+  VerseProvider({
+    @required this.id,
+    @required this.language,
+  });
 }

@@ -1,6 +1,8 @@
+import 'package:alquran/model/options/language.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:alquran/model/chapters/chapters.dart';
 import 'package:alquran/network/lib_net.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class ChaptersState {}
 
@@ -14,17 +16,23 @@ class SuccessGetteringChapters extends ChaptersState {
 
 class FailedGetteringChapters extends ChaptersState {}
 
-class ChapterProvider {}
+class ChapterProvider {
+  String langugage;
+  ChapterProvider({
+    this.langugage = "id",
+  });
+}
 
 class ChaptersBloc extends Bloc<ChapterProvider, ChaptersState> {
   ChaptersBloc() : super(LoadingGetteringChapters());
 
   @override
   Stream<ChaptersState> mapEventToState(ChapterProvider event) async* {
-    // TODO: implement mapEventToState
     yield LoadingGetteringChapters();
 
-    var data = await getDataChapters();
+    var data = await getDataChapters(
+      language: event.langugage,
+    );
 
     if (data == null) {
       yield FailedGetteringChapters();
