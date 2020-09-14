@@ -100,22 +100,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 decoration: BoxDecoration(
                   color: Color(0xFFE3D764),
                 ),
-                height: 150,
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Last reading",
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
-                    Expanded(
-                        child: Center(
-                      child: Container(
-                        child: Text("Number verse $chapterId $numberVerse"),
-                      ),
-                    ))
-                  ],
+                child: ListTile(
+                  title:
+                      Text("Last Reading Chapter ${chapterId}:${numberVerse}"),
+                  trailing: Icon(Icons.chevron_right),
                 ),
               ),
             ),
