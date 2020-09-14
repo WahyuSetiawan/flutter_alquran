@@ -12,6 +12,8 @@ import 'package:intl/intl.dart';
 import 'view_home/../list_chapter.dart';
 import 'view_home/../setting.dart';
 
+Color _colorCard = Color(0xFFEADE6F);
+
 class DashboardPage extends StatefulWidget {
   DashboardPage({
     Key key,
@@ -98,12 +100,17 @@ class _DashboardPageState extends State<DashboardPage> {
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFFE3D764),
+                  color: Color(0xFFDAD9C4),
                 ),
                 child: ListTile(
-                  title:
-                      Text("Last Reading Chapter ${chapterId}:${numberVerse}"),
-                  trailing: Icon(Icons.chevron_right),
+                  title: Text(
+                    "Last Reading Chapter ${chapterId}:${numberVerse}",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(fontSize: 14),
+                  ),
+                  trailing: Icon(Icons.chevron_right, size: 14),
                 ),
               ),
             ),
@@ -125,10 +132,11 @@ class _DashboardPageState extends State<DashboardPage> {
         ));
       },
       child: Card(
+        elevation: 10,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xFFE3D764),
+            color: _colorCard,
           ),
           height: 150,
           padding: EdgeInsets.all(10),
@@ -139,7 +147,21 @@ class _DashboardPageState extends State<DashboardPage> {
                 "List Bookmark",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-              Expanded(child: Stack())
+              Expanded(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Icon(
+                        Icons.bookmark,
+                        size: 80,
+                        color: Color(0xFF777777),
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -157,10 +179,11 @@ class _DashboardPageState extends State<DashboardPage> {
         ));
       },
       child: Card(
+        elevation: 10,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xFFE3D764),
+            color: _colorCard,
           ),
           height: 150,
           padding: EdgeInsets.all(10),
@@ -171,7 +194,21 @@ class _DashboardPageState extends State<DashboardPage> {
                 "List Chapter",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-              Expanded(child: Stack())
+              Expanded(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Icon(
+                        Icons.list,
+                        size: 80,
+                        color: Color(0xFF777777),
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -189,10 +226,11 @@ class _DashboardPageState extends State<DashboardPage> {
         ));
       },
       child: Card(
+        elevation: 10,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xFFE3D764),
+            color: _colorCard,
           ),
           height: 150,
           padding: EdgeInsets.all(10),
@@ -203,7 +241,21 @@ class _DashboardPageState extends State<DashboardPage> {
                 "Setting",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-              Expanded(child: Stack())
+              Expanded(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Icon(
+                        Icons.settings,
+                        size: 80,
+                        color: Color(0xFF777777),
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
